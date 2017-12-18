@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sqm.dao.StudentDao">
+    
+    <!--设定结果映射-->
+    <resultMap id="studentMap" type="Student">
+        <!--id标签专指id属性即主键字段与实体类的id属性对应的关系-->
+        <id column="s_id" property="id"/>
+        <!--result标签指其他属性间的对应关系,没有区别的属性可以不设对应关系,仍然为resultType的关系-->
+        <result column="s_name" property="name"/>
+        <result column="s_age" property="age"/>
+        <result column="s_score" property="score"/>
+    </resultMap>
+    
+    <!--插入一个student对象-->
+    <insert id="insertStudent">
+        INSERT INTO student.student (s_name, s_age, s_score)
+        VALUES (#{name}, #{age}, #{score});
+    </insert>
+    <!--插入并指定其id值-->
+    <insert id="insertStudentCatchId" >
+        INSERT INTO student.student(s_name,s_age,s_score)
+        VALUES (#{name},#{age},#{score});
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT last_insert_id();
+        </selectKey>
+    </insert>
+
+    <!--根据给定的id删除数据-->
+    <delete id="deleteStudentById">
+        DELETE FROM student.student
+        WHERE s_id = #{choose};
+    </delete>
+
+    <!--根据给定的Student对象修改数据-->
+    <update id="updateStudent">
+        UPDATE student.student
+        SET s_name = #{name}, s_age = #{age}, s_score = #{score}
+        WHERE s_id = #{id};
+    </update>
+
+    <!--查询所有数据并返回list-->
+    <select id="selectAllStudents" resultMap="studentMap">
+        SELECT *
+        FROM student.student
+    </select>
+    
+    <!--通过id值查询单个对象-->
+    <select id="selectStudentById" resultMap="studentMap">
+        SELECT *
+        FROM student.student
+        WHERE s_id = #{id}
+    </select>
+
+    <!--通过id值或指定id的Student对象来查询单个对象-->
+    <select id="selectStudent" resultMap="studentMap">
+        SELECT *
+        FROM student.student
+        WHERE s_id = #{studentId} OR s_id = #{student.id};
+    </select>
+
+    <!--通过名字中包含的字符串模糊查询-->
+    <select id="selectStudentsByName" resultMap="studentMap">
+        SELECT *
+        FROM student.student
+        WHERE s_name LIKE concat('%',#{value},'%')
+    </select>
+
+    <!--通过指定的字段名来查找符合条件的数据-->
+    <select id="selectStudentsByMap" resultMap="studentMap">
+        SELECT *
+        FROM student.student
+        WHERE s_age &lt;= #{ageCondition} AND s_score &gt;= #{scoreCondition}
+    </select>
+
+    <!--通过给定的条件来筛选数据-->
+    <select id="selectStudentsByConditions" resultMap="studentMap">
+        SELECT *
+        FROM student.student
+        WHERE s_name LIKE '%' #{arg0} '%' AND s_age &lt;= #{arg1} AND s_score &gt;= #{arg2}
+    </select>
+
+</mapper>
