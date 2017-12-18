@@ -35,7 +35,7 @@
 -   ![](07_mybatis01.jpg)
 -   ​
 
-###1.3 mybatis工作原理
+##1.3 mybatis工作原理
 
 -   ![](07_mybatis02.jpg)
 
