@@ -13,7 +13,6 @@
 
     <typeAliases>
         <package name="com.sqm.pojo"/>
-        <package name="com.sqm.dao"/>
     </typeAliases>
     <!--<typeAliases>   -->
         <!--<typeAlias type="com.sqm.util.MyBatisUtil" alias="MyBatisUtil"/>-->
