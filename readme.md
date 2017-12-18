@@ -155,7 +155,7 @@
 
 5.  **定义映射文件**
 
-    -   映射文件简称mapper,一般放在dao包中,格式为xml.如mapper.xml
+    -   映射文件简称mapper,一般放在dao包中,格式为xml.如mapper.xml;maven中放在resources目录下的自定义的文件夹中
 
     -   mapper的约束dtd文件在mybatis核心jar包的org.apache.ibatis.builder.xml中(**mybatis-3-mapper.dtd**),此包中还有mybatis的主配置文件(**mybatis-3-config.dtd**)
 
@@ -216,7 +216,7 @@
 
 6.  定义主配置文件
 
-    1.  主配置文件也是xml格式,dtd约束为mybatis-3-config.dtd,主配置文件命名随意,例如mybatis.xml
+    1.  主配置文件也是xml格式,dtd约束为mybatis-3-config.dtd,主配置文件命名随意,例如mybatis.xml;主配置文件一般放在根目录,maven中放在resources目录
 
         ```xml
         <?xml version="1.0" encoding="UTF-8" ?>
